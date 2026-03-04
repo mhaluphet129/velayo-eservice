@@ -64,3 +64,86 @@ export const config = {
     "/accounting",
   ],
 };
+
+// import { NextRequest, NextResponse } from "next/server";
+
+// function decodeJwtPayload(token: string) {
+//   try {
+//     const payload = token.split(".")[1];
+//     return JSON.parse(
+//       Buffer.from(payload, "base64url").toString()
+//     );
+//   } catch {
+//     return null;
+//   }
+// }
+
+// export function middleware(req: NextRequest) {
+//   const { pathname } = req.nextUrl;
+//   const token = req.cookies.get("token")?.value;
+
+//   let role: string | null = null;
+
+//   if (token) {
+//     const decoded = decodeJwtPayload(token);
+//     role = decoded?.role ?? null;
+//   }
+
+//   // Root routing
+//   if (pathname === "/") {
+//     if (!token) {
+//       return NextResponse.redirect(new URL("/login", req.url));
+//     }
+//     if (role) {
+//       return NextResponse.redirect(
+//         new URL(`/${role}/home`, req.url)
+//       );
+//     }
+//   }
+
+//   // Protect routes
+//   const protectedRoutes = [
+//     "/teller",
+//     "/encoder",
+//     "/admin",
+//     "/accounting",
+//     "/pos",
+//   ];
+
+//   const isProtected = protectedRoutes.some((r) =>
+//     pathname.startsWith(r)
+//   );
+
+//   if (isProtected && !token) {
+//     return NextResponse.redirect(new URL("/login", req.url));
+//   }
+
+//   return NextResponse.next();
+// }
+
+// export const config = {
+//   matcher: [
+//     "/",
+//     "/login",
+//     "/teller/:path*",
+//     "/encoder/:path*",
+//     "/admin/:path*",
+//     "/accounting/:path*",
+//     "/pos/:path*",
+//   ],
+// };
+
+// Frontend part
+
+// import { redirect } from "next/navigation";
+// import { getCurrentUser } from "@/lib/auth";
+
+// export default async function AdminLayout({ children }) {
+//   const user = await getCurrentUser();
+
+//   if (!user || user.role !== "admin") {
+//     redirect("/login");
+//   }
+
+//   return children;
+// }
